@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-kafka="http://www.springframework.org/schema/integration/kafka"
+       xmlns:int-http="http://www.springframework.org/schema/integration/http"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/integration/http
+		http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+        http://www.springframework.org/schema/integration
+        http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://www.springframework.org/schema/integration/kafka
+        http://www.springframework.org/schema/integration/kafka/spring-integration-kafka.xsd">
+
+    <!--  consume message from the kafka topic  -->
+    <int-kafka:inbound-channel-adapter id="kafkaInbound"
+                                       auto-startup="true"
+                                       channel="request"
+                                       consumer-factory="kafkaConsumerFactory"
+    />
+
+    <int:chain input-channel="request" output-channel="split">
+
+        <!--    extract URLs from the consumed link    -->
+        <int:service-activator ref="extractActivator" method="extract" />
+
+    </int:chain>
+
+    <!--  split the message(array of links) and send the links one by one  -->
+    <int:service-activator input-channel="split" output-channel="produce"
+                           expression="payload"/>
+
+    <!--  push extracted URL to the url-frontier  -->
+    <int:chain input-channel="produce">
+
+        <!--    call url-frontier API    -->
+        <int-http:outbound-gateway id="pushToFrontier"
+                                   url="${url.frontier.path}"
+                                   http-method="POST"
+        />
+    </int:chain>
+
+</beans>

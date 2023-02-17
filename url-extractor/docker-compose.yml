@@ -1,0 +1,30 @@
+version: '3'
+services:
+  spring-integration:
+    image: url-frontier
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - kafka
+      - mongodb
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_PORT: 9092
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
