@@ -1,16 +1,15 @@
-## What is a Web Crawler?
-A program that automatically browses the internet, gathering data from web pages by following links.
-
-### What is a URL Frontier?
+# What is a URL Frontier?
 A URL frontier is the component of a web crawler that maintains a list of URLs to be crawled next. The URLs are prioritized based on certain criteria (e.g. depth, relevance, etc.) and the crawler retrieves the pages at the URLs and extracts more URLs to add to the frontier. The frontier acts as a queue, with new URLs being added and old URLs being removed as they are processed. The URL frontier is an important component of a web crawler as it helps ensure that the crawl is focused and efficient, rather than randomly accessing pages on the web.
 
-### Tech Stack
-A URL frontier has been implemented using Spring Integration, MongoDB, Redis, and Kafka.
+## Tech Stack
+This URL frontier has been implemented using Java, Spring Integration, MongoDB, Redis, and Kafka.
 
-### Integration Flow
+### Crawling Integration Flow
 1. A URL object is received through an inbound gateway in the following format:
    
-  `{"link":"https://wwws.google.com/"}`
+  `{
+        "link":"https://wwws.google.com/"
+   }`
 
 2. The URL object is then sent to a Spring Integration transformer module to normalize the requested URL.
 
@@ -24,5 +23,5 @@ A URL frontier has been implemented using Spring Integration, MongoDB, Redis, an
 
   `redisActivator`, `kafkaActivator`, `mongoActivator`
 
-### Recrawl
+### Recrawling Integration Flow
 To recrawl URLs, there is a poller that gets the oldest URLs from the Redis cache and checks if a webpage has been changed by sending a head request.

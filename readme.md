@@ -1,0 +1,9 @@
+# What is a Web Crawler?
+A web crawler, also known as a spider or robot, is a program that automatically explores the internet by visiting websites and extracting data from them. Web crawlers use algorithms to follow hyperlinks from one webpage to another, indexing the content they find along the way. This data can be used for a variety of purposes such as search engine indexing, data mining, and content scraping. Web crawlers are typically used by search engines, but they can also be used by businesses to gather competitive intelligence or by researchers to study web content.
+
+## Components of this Crawler
+
+- URL-FRONTIER: A URL frontier is a queue of website URLs that a web crawler uses to systematically crawl the internet. The frontier is typically organized in a priority queue, with higher priority given to URLs that are more important, such as those that are linked to by many other websites. As the crawler processes each URL, it adds any newly discovered URLs to the frontier, ensuring that the crawler systematically explores the entire web. The URL frontier is an important component of web crawling systems, helping to ensure efficient and effective crawling of the vast and constantly changing landscape of the internet.
+
+
+- URL-EXTRACTOR: A URL extractor is a program or tool that scans a webpage or document and extracts all of the URLs that it contains. This can be useful for a variety of purposes, such as building a list of links to crawl, finding broken links on a website, or analyzing the link structure of a webpage. URL extractors typically use regular expressions or other pattern matching techniques to identify and extract URLs from the HTML or text of a document. They can also be used to extract other types of data, such as email addresses or phone numbers, from a webpage or document.
