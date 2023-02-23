@@ -1,4 +1,4 @@
-package com.crawler.config;
+package com.crawler.activator;
 
 import com.crawler.entity.Request;
 import org.springframework.messaging.handler.annotation.Payload;

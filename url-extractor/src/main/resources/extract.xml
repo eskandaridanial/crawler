@@ -28,7 +28,7 @@
     </int:chain>
 
     <!--  split the message(array of links) and send the links one by one  -->
-    <int:service-activator input-channel="split" output-channel="produce"
+    <int:splitter input-channel="split" output-channel="produce"
                            expression="payload"/>
 
     <!--  push extracted URL to the url-frontier  -->
